@@ -13,3 +13,6 @@ https://stackoverflow.com/questions/6366385/use-cases-and-examples-of-gof-decora
 
 Flyweight pattern from Tutorial Point
 https://www.tutorialspoint.com/design_pattern/flyweight_pattern.htm
+
+Interpreter pattern from Tutorial Point
+https://www.tutorialspoint.com/design_pattern/interpreter_pattern.htm
