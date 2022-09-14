@@ -13,6 +13,7 @@ public class Block extends Placement implements IDestroyable {
         this.hitPoint = hitPoint;
         this.position = position;
         this.hittable = hittable;
+        symbol = "B";
     }
 
     @Override

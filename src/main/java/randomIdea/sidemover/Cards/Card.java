@@ -10,8 +10,11 @@ public abstract class Card implements ISelectable {
     public int moveCost;
     public int shotCost;
 
+    public String symbol;
+
     public Card() {
     }
 
     public abstract void UseCard(Vector2 position);
+
 }

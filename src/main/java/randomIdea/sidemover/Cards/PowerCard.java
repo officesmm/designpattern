@@ -8,6 +8,10 @@ public class PowerCard extends Card implements IConsumable {
 
     public Placement hero;
 
+    public PowerCard() {
+        symbol = "[P]";
+    }
+
     @Override
     public void usePower(Placement hero) {
 
@@ -23,4 +27,5 @@ public class PowerCard extends Card implements IConsumable {
     public void UseCard(Vector2 position) {
         usePower(hero);
     }
+
 }

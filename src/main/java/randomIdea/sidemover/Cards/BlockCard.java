@@ -8,6 +8,10 @@ import randomIdea.sidemover.coordinate.Vector2;
 
 public class BlockCard extends Card{
 
+    public BlockCard() {
+        symbol = "[B]";
+    }
+
     @Override
     public void selectionShow() {
 //        TODO: input position data
@@ -19,4 +23,7 @@ public class BlockCard extends Card{
     public void UseCard(Vector2 position) {
         Placement plc = new Block(position, hitPoint, false);
     }
+
+
+
 }
