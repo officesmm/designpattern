@@ -1,4 +1,4 @@
-package randomIdea.sidemover.Cards;
+package randomIdea.sidemover.cards;
 
 import randomIdea.sidemover.coordinate.Vector2;
 
@@ -12,8 +12,9 @@ public class HeroCard extends Card {
     }
 
     @Override
-    public void selectionShow() {
+    public boolean selectionShow() {
 
+        return false;
     }
 
     @Override

@@ -1,12 +1,12 @@
-package randomIdea.sidemover._Core;
+package randomIdea.sidemover._core;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import randomIdea.sidemover.Cards.BlockCard;
-import randomIdea.sidemover.Cards.Card;
-import randomIdea.sidemover.Cards.HeroCard;
-import randomIdea.sidemover.Cards.PowerCard;
+import randomIdea.sidemover.cards.BlockCard;
+import randomIdea.sidemover.cards.Card;
+import randomIdea.sidemover.cards.HeroCard;
+import randomIdea.sidemover.cards.PowerCard;
 import randomIdea.sidemover.interfaces.ISelectable;
 
 public class Player {

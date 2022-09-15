@@ -29,4 +29,8 @@ public class Vector2 {
         }
         return null;
     }
+
+    public String display() {
+        return "(" + x + ", " + y + ")";
+    }
 }

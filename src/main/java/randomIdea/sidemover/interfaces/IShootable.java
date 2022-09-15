@@ -1,8 +1,9 @@
 package randomIdea.sidemover.interfaces;
 
+import randomIdea.sidemover.bullet.Bullet;
 import randomIdea.sidemover.coordinate.Vector2;
 
-public interface IShootable {
+public interface IShootable extends IAction{
 
-    public void shoot(Vector2.Directions direction);
+    public Bullet shoot(Vector2.Directions direction);
 }

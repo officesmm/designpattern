@@ -1,4 +1,4 @@
-package randomIdea.sidemover.Cards;
+package randomIdea.sidemover.cards;
 
 import randomIdea.sidemover.coordinate.Vector2;
 import randomIdea.sidemover.interfaces.ISelectable;

@@ -1,6 +1,6 @@
-package randomIdea.sidemover.Cards;
+package randomIdea.sidemover.cards;
 
-import randomIdea.sidemover.Places.Placement;
+import randomIdea.sidemover.places.Placement;
 import randomIdea.sidemover.coordinate.Vector2;
 import randomIdea.sidemover.interfaces.IConsumable;
 
@@ -18,9 +18,10 @@ public class PowerCard extends Card implements IConsumable {
     }
 
     @Override
-    public void selectionShow() {
+    public boolean selectionShow() {
         // TODO: 13/09/2022 select hero;
         UseCard(null);
+        return false;
     }
 
     @Override

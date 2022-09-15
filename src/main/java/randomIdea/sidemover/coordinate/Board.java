@@ -3,10 +3,10 @@ package randomIdea.sidemover.coordinate;
 import java.util.ArrayList;
 import java.util.List;
 
-import randomIdea.sidemover.Cards.HeroCard;
-import randomIdea.sidemover.Places.Block;
-import randomIdea.sidemover.Places.Hero;
-import randomIdea.sidemover.Places.Placement;
+import randomIdea.sidemover.cards.HeroCard;
+import randomIdea.sidemover.places.Block;
+import randomIdea.sidemover.places.Hero;
+import randomIdea.sidemover.places.Placement;
 
 public class Board {
     public final int BoardSizeX = 5;

@@ -1,11 +1,10 @@
-package randomIdea.sidemover.Places;
+package randomIdea.sidemover.places;
 
 import randomIdea.sidemover.coordinate.Vector2;
 import randomIdea.sidemover.interfaces.IDestroyable;
 
 public class Block extends Placement implements IDestroyable {
 
-    public int hitPoint;
 
     private boolean hittable;
 
@@ -22,7 +21,8 @@ public class Block extends Placement implements IDestroyable {
     }
 
     @Override
-    public void selectionShow() {
+    public boolean selectionShow() {
 
+        return false;
     }
 }
