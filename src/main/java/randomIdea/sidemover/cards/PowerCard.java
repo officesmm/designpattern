@@ -25,8 +25,9 @@ public class PowerCard extends Card implements IConsumable {
     }
 
     @Override
-    public void UseCard(Vector2 position) {
+    public Placement UseCard(Vector2 position) {
         usePower(hero);
+        return null;
     }
 
 }

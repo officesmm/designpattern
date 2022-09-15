@@ -24,13 +24,7 @@ public class Bullet extends Placement {
         symbol = "o";
     }
 
-
-    @Override
-    public boolean selectionShow() {
-        return false;
-    }
-
     public void move() {
-        position = Vector2.Move(position, direction);
+        position = Vector2.Move(null,position, direction);
     }
 }

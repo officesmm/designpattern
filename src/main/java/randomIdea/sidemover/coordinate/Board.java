@@ -3,10 +3,15 @@ package randomIdea.sidemover.coordinate;
 import java.util.ArrayList;
 import java.util.List;
 
+import randomIdea.sidemover.cards.BlockCard;
 import randomIdea.sidemover.cards.HeroCard;
+import randomIdea.sidemover.cards.NormalBlockCard;
+import randomIdea.sidemover.cards.SpecialBlockCard;
 import randomIdea.sidemover.places.Block;
 import randomIdea.sidemover.places.Hero;
+import randomIdea.sidemover.places.NormalBlock;
 import randomIdea.sidemover.places.Placement;
+import randomIdea.sidemover.places.SpecialBlock;
 
 public class Board {
     public final int BoardSizeX = 5;
@@ -19,8 +24,10 @@ public class Board {
     }
 
     public void TESTINPUT() {
-        boardItem.add(new Block(new Vector2(2, 3), 3, false));
-        boardItem.add(new Block(new Vector2(4, 3), 3, false));
+
+//        boardItem.add(new SpecialBlock(new Vector2(2, 3), 3));
+        boardItem.add(new SpecialBlockCard().UseCard(new Vector2(2, 3)));
+        boardItem.add(new NormalBlockCard(5).UseCard(new Vector2(4, 3)));
         boardItem.add(new Hero(new HeroCard(3, 2)));
     }
 
@@ -34,7 +41,7 @@ public class Board {
                     System.out.print(" _ ");
                 } else {
                     if (boardItem.get(boardItemCounter).position.x == loopX && boardItem.get(boardItemCounter).position.y == loopY) {
-                        System.out.print(" "+boardItem.get(boardItemCounter).symbol+ " ");
+                        System.out.print(" " + boardItem.get(boardItemCounter).symbol + " ");
                         boardItemCounter++;
                         if (boardItemCounter >= boardItem.size()) {
                             flagItemExist = false;

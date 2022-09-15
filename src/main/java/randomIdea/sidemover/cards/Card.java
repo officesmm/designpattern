@@ -2,6 +2,7 @@ package randomIdea.sidemover.cards;
 
 import randomIdea.sidemover.coordinate.Vector2;
 import randomIdea.sidemover.interfaces.ISelectable;
+import randomIdea.sidemover.places.Placement;
 
 public abstract class Card implements ISelectable {
     public int hitPoint;
@@ -15,6 +16,6 @@ public abstract class Card implements ISelectable {
     public Card() {
     }
 
-    public abstract void UseCard(Vector2 position);
+    public abstract Placement UseCard(Vector2 position);
 
 }

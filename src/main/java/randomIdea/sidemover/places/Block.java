@@ -1,28 +1,14 @@
 package randomIdea.sidemover.places;
 
+import randomIdea.sidemover.cards.BlockCard;
 import randomIdea.sidemover.coordinate.Vector2;
-import randomIdea.sidemover.interfaces.IDestroyable;
 
-public class Block extends Placement implements IDestroyable {
+public abstract class Block extends Placement {
 
-
-    private boolean hittable;
-
-    public Block( Vector2 position, int hitPoint, boolean hittable) {
-        this.hitPoint = hitPoint;
+    public Block(BlockCard card, Vector2 position) {
+        this.card = card;
         this.position = position;
-        this.hittable = hittable;
         symbol = "B";
     }
 
-    @Override
-    public boolean allowHit() {
-        return hittable;
-    }
-
-    @Override
-    public boolean selectionShow() {
-
-        return false;
-    }
 }

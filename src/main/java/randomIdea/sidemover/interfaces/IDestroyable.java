@@ -1,5 +1,7 @@
 package randomIdea.sidemover.interfaces;
 
 public interface IDestroyable {
-    public boolean allowHit();
+    public int hit(int damage);
+
+    public boolean isDead();
 }

@@ -6,7 +6,9 @@ import java.util.List;
 import randomIdea.sidemover.cards.BlockCard;
 import randomIdea.sidemover.cards.Card;
 import randomIdea.sidemover.cards.HeroCard;
+import randomIdea.sidemover.cards.NormalBlockCard;
 import randomIdea.sidemover.cards.PowerCard;
+import randomIdea.sidemover.cards.SpecialBlockCard;
 import randomIdea.sidemover.interfaces.ISelectable;
 
 public class Player {
@@ -26,8 +28,8 @@ public class Player {
     }
 
     void creation() {
-        deck.add(new BlockCard());
-        deck.add(new BlockCard());
+        deck.add(new SpecialBlockCard());
+        deck.add(new NormalBlockCard(5));
         deck.add(new HeroCard(3, 2));
         deck.add(new HeroCard(3, 2));
         deck.add(new PowerCard());

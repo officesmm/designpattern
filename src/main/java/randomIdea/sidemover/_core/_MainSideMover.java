@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 
 import randomIdea.sidemover.bullet.Bullet;
 import randomIdea.sidemover.cards.Card;
+import randomIdea.sidemover.interfaces.IDestroyable;
+import randomIdea.sidemover.interfaces.ISelectable;
 import randomIdea.sidemover.places.Hero;
 import randomIdea.sidemover.places.Placement;
 import randomIdea.sidemover.coordinate.Board;
@@ -63,19 +65,22 @@ public class _MainSideMover {
         } else {
             System.out.println("Select a hero on the map");
             for (int i = 0; i < MAINBOARD.boardItem.size(); i++) {
-                if (MAINBOARD.boardItem.get(i).symbol == "H") {
+                if (MAINBOARD.boardItem.get(i) instanceof ISelectable) {
                     System.out.println("Type " + i + " if you want to select " + MAINBOARD.boardItem.get(i).symbol + MAINBOARD.boardItem.get(i).position.display());
                 }
             }
             String input = br.readLine();
             try {
                 PLACEMENT_SELECTION = MAINBOARD.boardItem.get(Integer.parseInt(input));
-                playerSelectionCard();
+                if (PLACEMENT_SELECTION instanceof ISelectable) {
+                    playerSelectionCard();
+                }else {
+                    System.out.println("You cannot select this.");
+                }
             } catch (IndexOutOfBoundsException e) {
-                System.out.println("Please select the valid character");
+                System.out.println("Please select the valid character.");
             }
         }
-
     }
 
     public static void playerSelectionCard() throws IOException {
@@ -84,15 +89,16 @@ public class _MainSideMover {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String input = br.readLine();
 
-        System.out.println("1 for E, 2 for W, 3 for S, 4 for W");
+        System.out.println("1 for →, 2 for ←, 3 for ↓, 4 for ↑");
         String input2 = br.readLine();
 
         switch (input) {
             case "1":
-                ((Hero) PLACEMENT_SELECTION).move(directionMapper(input2));
+                ((Hero) PLACEMENT_SELECTION).move(MAINBOARD, directionMapper(input2));
                 break;
             case "2":
-                ((Hero) PLACEMENT_SELECTION).shoot(directionMapper(input2));
+                Bullet bullet = ((Hero) PLACEMENT_SELECTION).shoot(directionMapper(input2));
+                onCollisionEnter(bullet);
                 break;
             default:
                 break;
@@ -103,19 +109,25 @@ public class _MainSideMover {
     public static boolean onCollisionEnter(Bullet bullet) {
         for (int m = 0; m < bullet.bulletRange; m++) {
             bullet.move();
+            System.out.println("bullet is moving to " + bullet.position.display());
             for (int i = 0; i < MAINBOARD.boardItem.size(); i++) {
-                if (MAINBOARD.boardItem.get(i).position == bullet.position) {
-                    MAINBOARD.boardItem.get(i).hitPoint -= bullet.damage;
-                    if (MAINBOARD.boardItem.get(i).hitPoint <= 0) {
-                        System.out.println("Bullet hit " + MAINBOARD.boardItem.get(i).symbol +
-                                MAINBOARD.boardItem.get(i).position.display() +
-                                " and dead.");
-                        MAINBOARD.boardItem.remove(i);
-                    }else{
-                    System.out.println("Bullet hit " + MAINBOARD.boardItem.get(i).symbol +
-                            MAINBOARD.boardItem.get(i).position.display() +
-                            " and " +
-                            MAINBOARD.boardItem.get(i).hitPoint + " hitPoint left.");
+                if (Vector2.CheckingSamePosition(MAINBOARD.boardItem.get(i).position, bullet.position)) {
+                    if (MAINBOARD.boardItem.get(i) instanceof IDestroyable) {
+                        IDestroyable iDestroyable = ((IDestroyable) MAINBOARD.boardItem.get(i));
+                        iDestroyable.hit(bullet.damage);
+                        if (iDestroyable.isDead()) {
+                            System.out.println("Bullet hit " + MAINBOARD.boardItem.get(i).symbol +
+                                    MAINBOARD.boardItem.get(i).position.display() +
+                                    " and dead.");
+                            MAINBOARD.boardItem.remove(i);
+                        } else {
+                            System.out.println("Bullet hit " + MAINBOARD.boardItem.get(i).symbol +
+                                    MAINBOARD.boardItem.get(i).position.display() +
+                                    " and " +
+                                    MAINBOARD.boardItem.get(i).card.hitPoint + " hitPoint left.");
+                        }
+                    } else {
+                        System.out.println("Bullet hit a random item that is not destroyable");
                     }
                     return true;
                 }
@@ -152,4 +164,5 @@ public class _MainSideMover {
         }
         return null;
     }
+
 }
