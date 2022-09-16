@@ -37,23 +37,22 @@ public class Vector2 {
         return newPosition;
     }
 
-//    public static Vector2 Move(Vector2 vector2, Directions direction) {
-//        Vector2 newPosition = null;
-//        switch (direction) {
-//            case EAST:
-//                newPosition = new Vector2(vector2.x + 1, vector2.y);
-//            case WEST:
-//                newPosition = new Vector2(vector2.x - 1, vector2.y);
-//            case SOUTH:
-//                newPosition = new Vector2(vector2.x, vector2.y - 1);
-//            case NORTH:
-//                newPosition = new Vector2(vector2.x, vector2.y + 1);
-//        }
-//        return newPosition;
-//    }
-
-
     public static boolean CheckingSamePosition(Vector2 pos1, Vector2 pos2) {
         return (pos1.x == pos2.x && pos1.y == pos2.y);
     }
+
+    public static Vector2.Directions DirectionMapper(String num) {
+        switch (num) {
+            case "1":
+                return Directions.EAST;
+            case "2":
+                return Directions.WEST;
+            case "3":
+                return Directions.SOUTH;
+            case "4":
+                return Directions.NORTH;
+        }
+        return null;
+    }
+
 }

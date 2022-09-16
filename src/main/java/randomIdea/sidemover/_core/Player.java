@@ -14,6 +14,7 @@ import randomIdea.sidemover.interfaces.ISelectable;
 public class Player {
 
     List<Card> deck = new ArrayList<Card>();
+    public int Gem = 0;
 
     public void init() {
         creation();

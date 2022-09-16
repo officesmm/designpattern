@@ -5,7 +5,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import randomIdea.sidemover.bullet.Bullet;
+import randomIdea.sidemover.cards.BlockCard;
 import randomIdea.sidemover.cards.Card;
+import randomIdea.sidemover.cards.HeroCard;
+import randomIdea.sidemover.cards.PowerCard;
 import randomIdea.sidemover.interfaces.IDestroyable;
 import randomIdea.sidemover.interfaces.ISelectable;
 import randomIdea.sidemover.places.Hero;
@@ -35,11 +38,11 @@ public class _MainSideMover {
 
     public static void init() throws InstantiationException, IllegalAccessException {
         MAINBOARD = Singleton.getInstance(Board.class);
-        showBoard();
+        ShowBoard();
 
         PLAYER = new Player();
         PLAYER.init();
-        showCard();
+        ShowCard();
     }
 
     public static void playerAction() throws IOException {
@@ -58,6 +61,7 @@ public class _MainSideMover {
         }
     }
 
+
     public static void playerSelectionMap() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         if (MAINBOARD.boardItem.size() == 0) {
@@ -73,8 +77,8 @@ public class _MainSideMover {
             try {
                 PLACEMENT_SELECTION = MAINBOARD.boardItem.get(Integer.parseInt(input));
                 if (PLACEMENT_SELECTION instanceof ISelectable) {
-                    playerSelectionCard();
-                }else {
+                    playerSelectionHero();
+                } else {
                     System.out.println("You cannot select this.");
                 }
             } catch (IndexOutOfBoundsException e) {
@@ -83,7 +87,7 @@ public class _MainSideMover {
         }
     }
 
-    public static void playerSelectionCard() throws IOException {
+    public static void playerSelectionHero() throws IOException {
         System.out.println(PLACEMENT_SELECTION.symbol + PLACEMENT_SELECTION.position.display() + " has been selected.");
         System.out.println("1 for move, 2 for shot");
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -94,19 +98,80 @@ public class _MainSideMover {
 
         switch (input) {
             case "1":
-                ((Hero) PLACEMENT_SELECTION).move(MAINBOARD, directionMapper(input2));
+                ((Hero) PLACEMENT_SELECTION).move(MAINBOARD, Vector2.DirectionMapper(input2));
                 break;
             case "2":
-                Bullet bullet = ((Hero) PLACEMENT_SELECTION).shoot(directionMapper(input2));
-                onCollisionEnter(bullet);
+                Bullet bullet = ((Hero) PLACEMENT_SELECTION).shoot(Vector2.DirectionMapper(input2));
+                OnCollisionEnter(bullet);
                 break;
             default:
                 break;
         }
-        showAllStatus();
+        ShowAllStatus();
     }
 
-    public static boolean onCollisionEnter(Bullet bullet) {
+    private static void playerSelectionCard() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        if (PLAYER.deck.size() == 0) {
+            System.out.println("Nothing to select for the Card");
+        } else {
+            System.out.println("Here are the Cards to select");
+            for (int i = 0; i < PLAYER.deck.size(); i++) {
+                System.out.println(i + ". " + PLAYER.deck.get(i).symbol);
+            }
+            String input = br.readLine();
+            try {
+                CARD_SELECTION = PLAYER.deck.get(Integer.getInteger(input));
+                if (CARD_SELECTION instanceof BlockCard) {
+                    // TODO: 16/09/2022 choose position
+                    // TODO: check position available
+                    // TODO: available use / not return error
+                } else if (CARD_SELECTION instanceof HeroCard) {
+                    // TODO: 16/09/2022
+                    // TODO: check 3, 1 is available
+                    // TODO: available use / not available return error
+                } else if (CARD_SELECTION instanceof PowerCard) {
+                    // TODO: 16/09/2022
+                    // TODO: check hero exist
+                    // TODO: exist choose hero and use / not exist return error
+                }
+                CARD_SELECTION.UseCard(new Vector2(1, 2));
+            } catch (Exception e) {
+                System.out.println("Please select the valid cards");
+            }
+        }
+    }
+
+    public static Vector2 RequestLocation() throws IOException {
+        boolean errorOccur = false;
+        Vector2 v2 = null;
+        do {
+            System.out.println("Please select the location");
+            System.out.print("x : ");
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            String inputX = br.readLine();
+            System.out.print("y : ");
+            String inputY = br.readLine();
+            try {
+                v2 = new Vector2(Integer.parseInt(inputX), Integer.parseInt(inputY));
+                errorOccur = false;
+            } catch (Exception e) {
+                errorOccur = true;
+            }
+        } while (errorOccur);
+        return v2;
+    }
+
+    public static boolean LocationAvailable(Vector2 vector2){
+        for (int i = 0; i < MAINBOARD.boardItem.size(); i++) {
+            if (Vector2.CheckingSamePosition(MAINBOARD.boardItem.get(i).position, vector2)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean OnCollisionEnter(Bullet bullet) {
         for (int m = 0; m < bullet.bulletRange; m++) {
             bullet.move();
             System.out.println("bullet is moving to " + bullet.position.display());
@@ -137,32 +202,18 @@ public class _MainSideMover {
         return false;
     }
 
-    public static void showBoard() {
+    public static void ShowBoard() {
         MAINBOARD.TESTINPUT();
         MAINBOARD.show();
     }
 
-    public static void showCard() {
+    public static void ShowCard() {
         PLAYER.show();
     }
 
-    public static void showAllStatus() {
+    public static void ShowAllStatus() {
         MAINBOARD.show();
         PLAYER.show();
-    }
-
-    private static Vector2.Directions directionMapper(String num) {
-        switch (num) {
-            case "1":
-                return Vector2.Directions.EAST;
-            case "2":
-                return Vector2.Directions.WEST;
-            case "3":
-                return Vector2.Directions.SOUTH;
-            case "4":
-                return Vector2.Directions.NORTH;
-        }
-        return null;
     }
 
 }
