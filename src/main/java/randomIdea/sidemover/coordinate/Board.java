@@ -37,23 +37,31 @@ public class Board {
         boolean flagItemExist = true;
         for (int loopY = BoardSizeY; loopY > 0; loopY--) {
             for (int loopX = 1; loopX <= BoardSizeX; loopX++) {
-                if (!flagItemExist || boardItem.size() == 0) {
-                    System.out.print(" _ ");
+                if (boardItem.size() == 0) {
+                    System.out.print(" . ");
                 } else {
-                    if (boardItem.get(boardItemCounter).position.x == loopX && boardItem.get(boardItemCounter).position.y == loopY) {
-                        System.out.print(" " + boardItem.get(boardItemCounter).symbol + " ");
-                        boardItemCounter++;
-                        if (boardItemCounter >= boardItem.size()) {
-                            flagItemExist = false;
-                        }
+                    if (!flagItemExist) {
+                        System.out.print(" . ");
                     } else {
-                        System.out.print(" _ ");
+                        if (Vector2.CheckingSamePosition(boardItem.get(boardItemCounter).position, new Vector2(loopX, loopY))) {
+                            System.out.print(" " + boardItem.get(boardItemCounter).symbol + " ");
+                            boardItemCounter++;
+                            if (boardItemCounter >= boardItem.size()) {
+                                flagItemExist = false;
+                            }
+                        } else {
+                            System.out.print(" . ");
+                        }
                     }
                 }
             }
             System.out.println();
         }
+
         System.out.println("----- MAP -----");
+        for (int i = 0; i < boardItem.size(); i++) {
+            System.out.println("- " + boardItem.get(i).symbol + boardItem.get(i).position.display());
+        }
         System.out.println();
     }
 }

@@ -7,7 +7,7 @@ import randomIdea.sidemover.places.Placement;
 public abstract class Card implements ISelectable {
     public int hitPoint;
 
-    public int placeCost;
+    public int placeCost = 1;
     public int moveCost;
     public int shotCost;
 

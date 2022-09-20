@@ -1,5 +1,6 @@
 package randomIdea.sidemover.cards;
 
+import randomIdea.sidemover.places.Hero;
 import randomIdea.sidemover.places.Placement;
 import randomIdea.sidemover.coordinate.Vector2;
 import randomIdea.sidemover.interfaces.IConsumable;
@@ -31,7 +32,7 @@ public class PowerCard extends Card {
         symbol = "[P]";
     }
 
-    public String usePower(Placement hero) {
+    public String usePower(Hero hero) {
         hero.card.hitPoint +=upgradeHitPoint;
         hero.card.hitPoint +=upgradeDamage;
         return effectText;

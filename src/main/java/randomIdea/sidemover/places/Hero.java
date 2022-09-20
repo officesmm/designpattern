@@ -23,8 +23,14 @@ public class Hero extends Placement implements IShootable, IMovable, IDestroyabl
     }
 
     @Override
-    public void move(Board board, Vector2.Directions direction) {
-        position = Vector2.Move(board, position, direction);
+    public Vector2 move(Board board, Vector2.Directions direction) {
+        Vector2 newPosition = Vector2.Move(board, position, direction);
+        if(newPosition != null) {
+            this.position = Vector2.Move(board, position, direction);
+            return this.position;
+        }else {
+            return null;
+        }
     }
 
     @Override

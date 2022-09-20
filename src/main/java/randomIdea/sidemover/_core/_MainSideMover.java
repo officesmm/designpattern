@@ -18,8 +18,8 @@ import randomIdea.sidemover.coordinate.Vector2;
 import randomIdea.sidemover.design.Singleton;
 
 public class _MainSideMover {
-    static Board MAINBOARD;
-    static Player PLAYER;
+    public static Board MAINBOARD;
+    public static Player PLAYER;
 
     static Placement PLACEMENT_SELECTION;
     static Card CARD_SELECTION;
@@ -63,20 +63,28 @@ public class _MainSideMover {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String input = br.readLine();
 
-        System.out.println("1 for →, 2 for ←, 3 for ↓, 4 for ↑");
-        String input2 = br.readLine();
+        boolean allowMove = false;
+        do {
+            System.out.println("1 for →, 2 for ←, 3 for ↓, 4 for ↑");
+            String input2 = br.readLine();
 
-        switch (input) {
-            case "1":
-                ((Hero) PLACEMENT_SELECTION).move(MAINBOARD, Vector2.DirectionMapper(input2));
-                break;
-            case "2":
-                Bullet bullet = ((Hero) PLACEMENT_SELECTION).shoot(Vector2.DirectionMapper(input2));
-                OnCollisionEnter(bullet);
-                break;
-            default:
-                break;
-        }
+            switch (input) {
+                case "1":
+                    allowMove = (((Hero) PLACEMENT_SELECTION).move(MAINBOARD, Vector2.DirectionMapper(input2)) != null);
+                    if (allowMove) {
+                        System.out.println("cut the money");
+                    } else {
+                        System.out.println("Unable to move that way please try again.");
+                    }
+                    break;
+                case "2":
+                    Bullet bullet = ((Hero) PLACEMENT_SELECTION).shoot(Vector2.DirectionMapper(input2));
+                    OnCollisionEnter(bullet);
+                    break;
+                default:
+                    break;
+            }
+        } while (!allowMove);
         ShowAllStatus();
     }
 
@@ -121,8 +129,8 @@ public class _MainSideMover {
                 String effect = ((PowerCard) CARD_SELECTION).usePower(hero);
                 System.out.println(effect + " is applied on " + hero.symbol + hero.position.display());
                 System.out.println("HitPoint : " + hero.card.hitPoint +
-                        "\nDamage : " +((HeroCard)hero.card).damage);
-            }else {
+                        "\nDamage : " + ((HeroCard) hero.card).damage);
+            } else {
                 System.out.println("ERROR: This card is unknown card");
                 ShowAllStatus();
                 return;
@@ -171,7 +179,7 @@ public class _MainSideMover {
             System.out.println("Select a hero on the map");
             for (int i = 0; i < MAINBOARD.boardItem.size(); i++) {
                 if (MAINBOARD.boardItem.get(i) instanceof ISelectable) {
-                    System.out.println("Type " + i + " if you want to select " + MAINBOARD.boardItem.get(i).symbol + MAINBOARD.boardItem.get(i).position.display());
+                    System.out.println(i + ", if you want to select " + MAINBOARD.boardItem.get(i).symbol + MAINBOARD.boardItem.get(i).position.display());
                 }
             }
             String input = br.readLine();
