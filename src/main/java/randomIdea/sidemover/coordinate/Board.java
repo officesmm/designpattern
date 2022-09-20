@@ -1,23 +1,27 @@
 package randomIdea.sidemover.coordinate;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import randomIdea.sidemover.cards.BlockCard;
 import randomIdea.sidemover.cards.HeroCard;
 import randomIdea.sidemover.cards.NormalBlockCard;
 import randomIdea.sidemover.cards.SpecialBlockCard;
-import randomIdea.sidemover.places.Block;
 import randomIdea.sidemover.places.Hero;
-import randomIdea.sidemover.places.NormalBlock;
 import randomIdea.sidemover.places.Placement;
-import randomIdea.sidemover.places.SpecialBlock;
 
 public class Board {
     public final int BoardSizeX = 5;
     public final int BoardSizeY = 5;
 
     public List<Placement> boardItem = new ArrayList<Placement>(); // board should be singleton class
+    public Placement[] boardItems = new Placement[BoardSizeX * BoardSizeY];
+
+    public Placement getBoardItems(int x, int y) {
+        int specialX = Math.abs(Math.abs(x - BoardSizeX) - 1);
+        int specialY = Math.abs(y - 1);
+        return boardItems[specialX * BoardSizeX + specialY];
+    }
 
     public void init() {
 
