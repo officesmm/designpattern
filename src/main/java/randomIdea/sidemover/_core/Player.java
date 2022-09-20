@@ -33,8 +33,8 @@ public class Player {
         deck.add(new NormalBlockCard(5));
         deck.add(new HeroCard(3, 2));
         deck.add(new HeroCard(3, 2));
-        deck.add(new PowerCard());
-        deck.add(new PowerCard());
+        deck.add(new PowerCard(2,1,"2hp 1dmg Special Power"));
+        deck.add(new PowerCard("normal upgrade"));
     }
 
     void show() {

@@ -25,13 +25,8 @@ public class _MainSideMover {
     static Card CARD_SELECTION;
 
     public static void main(String[] args) throws InstantiationException, IllegalAccessException, IOException {
-
-//        TODO: Create random 6 cards - player block power 2 for each
-        // TODO: 13/09/2022 create board size and board array list
         init();
-//        TODO: Start Loop for player to drop Block
-//        TODO: Lose and win state
-        while (true) {
+        while (true) { // until game over
             playerAction();
         }
     }
@@ -51,7 +46,8 @@ public class _MainSideMover {
         String input = br.readLine();
         switch (input) {
             case "1":
-                playerSelectionMap();
+                PLACEMENT_SELECTION = SelectingHeroOnMap();
+                playerSelectionMapHero();
                 break;
             case "2":
                 playerSelectionCard();
@@ -61,33 +57,7 @@ public class _MainSideMover {
         }
     }
 
-
-    public static void playerSelectionMap() throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        if (MAINBOARD.boardItem.size() == 0) {
-            System.out.println("Nothing to select on the map");
-        } else {
-            System.out.println("Select a hero on the map");
-            for (int i = 0; i < MAINBOARD.boardItem.size(); i++) {
-                if (MAINBOARD.boardItem.get(i) instanceof ISelectable) {
-                    System.out.println("Type " + i + " if you want to select " + MAINBOARD.boardItem.get(i).symbol + MAINBOARD.boardItem.get(i).position.display());
-                }
-            }
-            String input = br.readLine();
-            try {
-                PLACEMENT_SELECTION = MAINBOARD.boardItem.get(Integer.parseInt(input));
-                if (PLACEMENT_SELECTION instanceof ISelectable) {
-                    playerSelectionHero();
-                } else {
-                    System.out.println("You cannot select this.");
-                }
-            } catch (IndexOutOfBoundsException e) {
-                System.out.println("Please select the valid character.");
-            }
-        }
-    }
-
-    public static void playerSelectionHero() throws IOException {
+    public static void playerSelectionMapHero() throws IOException {
         System.out.println(PLACEMENT_SELECTION.symbol + PLACEMENT_SELECTION.position.display() + " has been selected.");
         System.out.println("1 for move, 2 for shot");
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -121,27 +91,48 @@ public class _MainSideMover {
             }
             String input = br.readLine();
             try {
-                CARD_SELECTION = PLAYER.deck.get(Integer.getInteger(input));
-                if (CARD_SELECTION instanceof BlockCard) {
-                    // TODO: 16/09/2022 choose position
-                    // TODO: check position available
-                    // TODO: available use / not return error
-                } else if (CARD_SELECTION instanceof HeroCard) {
-                    // TODO: 16/09/2022
-                    // TODO: check 3, 1 is available
-                    // TODO: available use / not available return error
-                } else if (CARD_SELECTION instanceof PowerCard) {
-                    // TODO: 16/09/2022
-                    // TODO: check hero exist
-                    // TODO: exist choose hero and use / not exist return error
-                }
-                CARD_SELECTION.UseCard(new Vector2(1, 2));
-            } catch (Exception e) {
-                System.out.println("Please select the valid cards");
+                CARD_SELECTION = PLAYER.deck.get(Integer.parseInt(input));
+            } catch (NullPointerException e) {
+                System.out.println("Please select the valid cards" + e);
+            } catch (NumberFormatException e) {
+                System.out.println("Please type number to select the Card");
             }
+            if (CARD_SELECTION instanceof BlockCard) {
+                Vector2 deployPosition = RequestLocation();
+                if (Vector2.CheckingSamePosition(deployPosition, new Vector2(3, 1))) {
+                    System.out.println("Hero Entrance is not allow to set Block");
+                } else if (LocationAvailable(deployPosition)) {
+                    MAINBOARD.boardItem.add(
+                            CARD_SELECTION.UseCard(deployPosition));
+                    System.out.println("New Block is added on " + deployPosition.display());
+                } else {
+                    System.out.println("This location is not available");
+                }
+            } else if (CARD_SELECTION instanceof HeroCard) {
+                if (LocationAvailable(new Vector2(3, 1))) {
+                    MAINBOARD.boardItem.add(
+                            CARD_SELECTION.UseCard(new Vector2(3, 1)));
+                    System.out.println("New Hero is added on " + new Vector2(3, 1).display());
+                } else {
+                    System.out.println("Remove the entrance Item to deploy new hero");
+                }
+            } else if (CARD_SELECTION instanceof PowerCard) {
+                Hero hero = SelectingHeroOnMap();
+                String effect = ((PowerCard) CARD_SELECTION).usePower(hero);
+                System.out.println(effect + " is applied on " + hero.symbol + hero.position.display());
+                System.out.println("HitPoint : " + hero.card.hitPoint +
+                        "\nDamage : " +((HeroCard)hero.card).damage);
+            }else {
+                System.out.println("ERROR: This card is unknown card");
+                ShowAllStatus();
+                return;
+            }
+            PLAYER.deck.remove(Integer.parseInt(input));
         }
+        ShowAllStatus();
     }
 
+    // Recurring Functions
     public static Vector2 RequestLocation() throws IOException {
         boolean errorOccur = false;
         Vector2 v2 = null;
@@ -162,13 +153,39 @@ public class _MainSideMover {
         return v2;
     }
 
-    public static boolean LocationAvailable(Vector2 vector2){
+    public static boolean LocationAvailable(Vector2 vector2) {
         for (int i = 0; i < MAINBOARD.boardItem.size(); i++) {
-            if (Vector2.CheckingSamePosition(MAINBOARD.boardItem.get(i).position, vector2)){
+            if (Vector2.CheckingSamePosition(MAINBOARD.boardItem.get(i).position, vector2)) {
                 return false;
             }
         }
         return true;
+    }
+
+    public static Hero SelectingHeroOnMap() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        if (MAINBOARD.boardItem.size() == 0) {
+            System.out.println("Nothing to select on the map");
+            return null;
+        } else {
+            System.out.println("Select a hero on the map");
+            for (int i = 0; i < MAINBOARD.boardItem.size(); i++) {
+                if (MAINBOARD.boardItem.get(i) instanceof ISelectable) {
+                    System.out.println("Type " + i + " if you want to select " + MAINBOARD.boardItem.get(i).symbol + MAINBOARD.boardItem.get(i).position.display());
+                }
+            }
+            String input = br.readLine();
+            try {
+                if (MAINBOARD.boardItem.get(Integer.parseInt(input)) instanceof ISelectable) {
+                    return (Hero) MAINBOARD.boardItem.get(Integer.parseInt(input));
+                } else {
+                    System.out.println("You cannot select this.");
+                }
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("Please select the valid character.");
+            }
+            return null;
+        }
     }
 
     public static boolean OnCollisionEnter(Bullet bullet) {

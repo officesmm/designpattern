@@ -4,17 +4,37 @@ import randomIdea.sidemover.places.Placement;
 import randomIdea.sidemover.coordinate.Vector2;
 import randomIdea.sidemover.interfaces.IConsumable;
 
-public class PowerCard extends Card implements IConsumable {
+public class PowerCard extends Card {
 
-    public Placement hero;
+    public int upgradeHitPoint;
+    public int upgradeDamage;
+    public String effectText;
 
-    public PowerCard() {
+    public PowerCard(int upgradeHitPoint, int upgradeDamage, String effectText) {
+        this.upgradeHitPoint = upgradeHitPoint;
+        this.upgradeDamage = upgradeDamage;
+        this.effectText = effectText;
         symbol = "[P]";
     }
 
-    @Override
-    public void usePower(Placement hero) {
+    public PowerCard(String effectText) {
+        this.upgradeHitPoint = 1;
+        this.upgradeDamage = 0;
+        this.effectText = effectText;
+        symbol = "[P]";
+    }
 
+    public PowerCard() {
+        this.upgradeHitPoint = 1;
+        this.upgradeDamage = 0;
+        this.effectText = "Upgrading HitPoint";
+        symbol = "[P]";
+    }
+
+    public String usePower(Placement hero) {
+        hero.card.hitPoint +=upgradeHitPoint;
+        hero.card.hitPoint +=upgradeDamage;
+        return effectText;
     }
 
     @Override
@@ -26,7 +46,6 @@ public class PowerCard extends Card implements IConsumable {
 
     @Override
     public Placement UseCard(Vector2 position) {
-        usePower(hero);
         return null;
     }
 
