@@ -33,10 +33,12 @@ public class Vector2 {
                 newPosition = new Vector2(vector2.x, vector2.y + 1);
                 break;
         }
-        for (int i = 0; i < board.boardItem.size(); i++){
-            if((CheckingSamePosition (newPosition,board.boardItem.get(i).position)) || (!isInsideMap(newPosition, board.BoardSizeX, board.BoardSizeY))){
-                System.out.println("Debug: return Null by Vector 2: " + board.boardItem.get(i).position.display());
-                return null;
+        if(board != null){
+            for (int i = 0; i < board.boardItem.size(); i++) {
+                if ((CheckingSamePosition(newPosition, board.boardItem.get(i).position)) || (!isInsideMap(newPosition, board.BoardSizeX, board.BoardSizeY))) {
+                    System.out.println("Debug: return Null by Vector 2: " + board.boardItem.get(i).position.display());
+                    return null;
+                }
             }
         }
         return newPosition;

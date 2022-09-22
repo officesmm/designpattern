@@ -1,15 +1,15 @@
-package randomIdea.sidemover.cards;
+package randomIdea.sidemover.cards.abstracts;
 
 import randomIdea.sidemover.coordinate.Vector2;
 import randomIdea.sidemover.interfaces.ISelectable;
-import randomIdea.sidemover.places.Placement;
+import randomIdea.sidemover.places.abstracts.Placement;
 
 public abstract class Card implements ISelectable {
     public int hitPoint;
 
     public int placeCost = 1;
-    public int moveCost;
-    public int shotCost;
+    public int moveCost = 1;
+    public int shotCost = 1;
 
     public String symbol;
 

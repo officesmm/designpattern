@@ -8,6 +8,7 @@ import randomIdea.sidemover.interfaces.IDestroyable;
 import randomIdea.sidemover.interfaces.IMovable;
 import randomIdea.sidemover.interfaces.ISelectable;
 import randomIdea.sidemover.interfaces.IShootable;
+import randomIdea.sidemover.places.abstracts.Placement;
 
 public class Hero extends Placement implements IShootable, IMovable, IDestroyable, ISelectable {
 

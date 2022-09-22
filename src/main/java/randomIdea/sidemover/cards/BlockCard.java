@@ -1,8 +1,9 @@
 package randomIdea.sidemover.cards;
 
+import randomIdea.sidemover.cards.abstracts.Card;
 import randomIdea.sidemover.coordinate.Vector2;
 import randomIdea.sidemover.places.NormalBlock;
-import randomIdea.sidemover.places.Placement;
+import randomIdea.sidemover.places.abstracts.Placement;
 
 public abstract class BlockCard extends Card {
 

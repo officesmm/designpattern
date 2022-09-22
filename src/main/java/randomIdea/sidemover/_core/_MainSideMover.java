@@ -6,13 +6,13 @@ import java.io.InputStreamReader;
 
 import randomIdea.sidemover.bullet.Bullet;
 import randomIdea.sidemover.cards.BlockCard;
-import randomIdea.sidemover.cards.Card;
+import randomIdea.sidemover.cards.abstracts.Card;
 import randomIdea.sidemover.cards.HeroCard;
 import randomIdea.sidemover.cards.PowerCard;
 import randomIdea.sidemover.interfaces.IDestroyable;
 import randomIdea.sidemover.interfaces.ISelectable;
 import randomIdea.sidemover.places.Hero;
-import randomIdea.sidemover.places.Placement;
+import randomIdea.sidemover.places.abstracts.Placement;
 import randomIdea.sidemover.coordinate.Board;
 import randomIdea.sidemover.coordinate.Vector2;
 import randomIdea.sidemover.design.Singleton;
@@ -63,28 +63,43 @@ public class _MainSideMover {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String input = br.readLine();
 
-        boolean allowMove = false;
+        boolean actionSuccessMoveShot = false;
         do {
             System.out.println("1 for →, 2 for ←, 3 for ↓, 4 for ↑");
             String input2 = br.readLine();
-
             switch (input) {
                 case "1":
-                    allowMove = (((Hero) PLACEMENT_SELECTION).move(MAINBOARD, Vector2.DirectionMapper(input2)) != null);
-                    if (allowMove) {
-                        System.out.println("cut the money");
+                    if (PLAYER.Gem > PLACEMENT_SELECTION.card.moveCost) {
+                        actionSuccessMoveShot = (((Hero) PLACEMENT_SELECTION).move(MAINBOARD, Vector2.DirectionMapper(input2)) != null);
+                        if (actionSuccessMoveShot) {
+                            PLAYER.Gem -= PLACEMENT_SELECTION.card.moveCost;
+                            System.out.println("Gem cost to move : " + PLACEMENT_SELECTION.card.moveCost);
+                            System.out.println("Remaining Gem : " + PLAYER.Gem);
+                        } else {
+                            System.out.println("Unable to move that way please try again.");
+                        }
                     } else {
-                        System.out.println("Unable to move that way please try again.");
+                        System.out.println("Gem not enough to perform this action.");
+                        System.out.println("Require Gem : " + PLACEMENT_SELECTION.card.moveCost + ". Remaining Gem : " + PLAYER.Gem);
                     }
                     break;
                 case "2":
-                    Bullet bullet = ((Hero) PLACEMENT_SELECTION).shoot(Vector2.DirectionMapper(input2));
-                    OnCollisionEnter(bullet);
+                    if (PLAYER.Gem > PLACEMENT_SELECTION.card.shotCost) {
+                        PLAYER.Gem -= PLACEMENT_SELECTION.card.shotCost;
+                        Bullet bullet = ((Hero) PLACEMENT_SELECTION).shoot(Vector2.DirectionMapper(input2));
+                        OnCollisionEnter(bullet);
+                        System.out.println("Gem cost to shot : " + PLACEMENT_SELECTION.card.shotCost);
+                        System.out.println("Remaining Gem : " + PLAYER.Gem);
+                        actionSuccessMoveShot = true;
+                    } else {
+                        System.out.println("Gem not enough to perform this action.");
+                        System.out.println("Require Gem : " + PLACEMENT_SELECTION.card.shotCost + ". Remaining Gem : " + PLAYER.Gem);
+                    }
                     break;
                 default:
                     break;
             }
-        } while (!allowMove);
+        } while (!actionSuccessMoveShot);
         ShowAllStatus();
     }
 
@@ -105,37 +120,45 @@ public class _MainSideMover {
             } catch (NumberFormatException e) {
                 System.out.println("Please type number to select the Card");
             }
-            if (CARD_SELECTION instanceof BlockCard) {
-                Vector2 deployPosition = RequestLocation();
-                if (Vector2.CheckingSamePosition(deployPosition, new Vector2(3, 1))) {
-                    System.out.println("Hero Entrance is not allow to set Block");
-                } else if (LocationAvailable(deployPosition)) {
-                    MAINBOARD.boardItem.add(
-                            CARD_SELECTION.UseCard(deployPosition));
-                    System.out.println("New Block is added on " + deployPosition.display());
+            if (PLAYER.Gem > CARD_SELECTION.placeCost) {
+                if (CARD_SELECTION instanceof BlockCard) {
+                    Vector2 deployPosition = RequestLocation();
+                    if (Vector2.CheckingSamePosition(deployPosition, new Vector2(3, 1))) {
+                        System.out.println("Hero Entrance is not allow to set Block");
+                    } else if (LocationAvailable(deployPosition)) {
+                        MAINBOARD.boardItem.add(
+                                CARD_SELECTION.UseCard(deployPosition));
+                        System.out.println("New Block is added on " + deployPosition.display());
+                    } else {
+                        System.out.println("This location is not available");
+                    }
+                } else if (CARD_SELECTION instanceof HeroCard) {
+                    if (LocationAvailable(new Vector2(3, 1))) {
+                        MAINBOARD.boardItem.add(
+                                CARD_SELECTION.UseCard(new Vector2(3, 1)));
+                        System.out.println("New Hero is added on " + new Vector2(3, 1).display());
+                    } else {
+                        System.out.println("Remove the entrance Item to deploy new hero");
+                    }
+                } else if (CARD_SELECTION instanceof PowerCard) {
+                    Hero hero = SelectingHeroOnMap();
+                    String effect = ((PowerCard) CARD_SELECTION).usePower(hero);
+                    System.out.println(effect + " is applied on " + hero.symbol + hero.position.display());
+                    System.out.println("HitPoint : " + hero.card.hitPoint +
+                            "\nDamage : " + ((HeroCard) hero.card).damage);
                 } else {
-                    System.out.println("This location is not available");
+                    System.out.println("ERROR: This card is unknown card");
+                    ShowAllStatus();
+                    return;
                 }
-            } else if (CARD_SELECTION instanceof HeroCard) {
-                if (LocationAvailable(new Vector2(3, 1))) {
-                    MAINBOARD.boardItem.add(
-                            CARD_SELECTION.UseCard(new Vector2(3, 1)));
-                    System.out.println("New Hero is added on " + new Vector2(3, 1).display());
-                } else {
-                    System.out.println("Remove the entrance Item to deploy new hero");
-                }
-            } else if (CARD_SELECTION instanceof PowerCard) {
-                Hero hero = SelectingHeroOnMap();
-                String effect = ((PowerCard) CARD_SELECTION).usePower(hero);
-                System.out.println(effect + " is applied on " + hero.symbol + hero.position.display());
-                System.out.println("HitPoint : " + hero.card.hitPoint +
-                        "\nDamage : " + ((HeroCard) hero.card).damage);
+                PLAYER.Gem -= CARD_SELECTION.placeCost;
+                System.out.println("Gem cost to place card : " + CARD_SELECTION.placeCost);
+                System.out.println("Remaining Gem : " + PLAYER.Gem);
+                PLAYER.deck.remove(Integer.parseInt(input));
             } else {
-                System.out.println("ERROR: This card is unknown card");
-                ShowAllStatus();
-                return;
+                System.out.println("Gem not enough to perform this action.");
+                System.out.println("Require Gem : " + CARD_SELECTION.placeCost + ". Remaining Gem : " + PLAYER.Gem);
             }
-            PLAYER.deck.remove(Integer.parseInt(input));
         }
         ShowAllStatus();
     }

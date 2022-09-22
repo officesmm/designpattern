@@ -1,7 +1,7 @@
 package randomIdea.sidemover.bullet;
 
 import randomIdea.sidemover.coordinate.Vector2;
-import randomIdea.sidemover.places.Placement;
+import randomIdea.sidemover.places.abstracts.Placement;
 
 public class Bullet extends Placement {
     Vector2.Directions direction;
@@ -25,6 +25,6 @@ public class Bullet extends Placement {
     }
 
     public void move() {
-        position = Vector2.Move(null,position, direction);
+        position = Vector2.Move(null, position, direction);
     }
 }

@@ -3,8 +3,7 @@ package randomIdea.sidemover._core;
 import java.util.ArrayList;
 import java.util.List;
 
-import randomIdea.sidemover.cards.BlockCard;
-import randomIdea.sidemover.cards.Card;
+import randomIdea.sidemover.cards.abstracts.Card;
 import randomIdea.sidemover.cards.HeroCard;
 import randomIdea.sidemover.cards.KnockBackPowerCard;
 import randomIdea.sidemover.cards.NormalBlockCard;
@@ -34,7 +33,7 @@ public class Player {
         deck.add(new NormalBlockCard(5));
         deck.add(new HeroCard(3, 2));
         deck.add(new HeroCard(3, 2));
-        deck.add(new PowerCard(2,1,"2hp 1dmg Special Power"));
+        deck.add(new PowerCard(2, 1, "2hp 1dmg Special Power"));
         deck.add(new KnockBackPowerCard());
     }
 
@@ -45,6 +44,8 @@ public class Player {
         }
         System.out.println();
         System.out.println("----- CARDS -----");
+        System.out.println();
+        System.out.println("Remaining Gem : " + Gem);
         System.out.println();
     }
 }

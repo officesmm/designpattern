@@ -1,8 +1,9 @@
 package randomIdea.sidemover.cards;
 
+import randomIdea.sidemover.cards.abstracts.Card;
 import randomIdea.sidemover.coordinate.Vector2;
 import randomIdea.sidemover.places.Hero;
-import randomIdea.sidemover.places.Placement;
+import randomIdea.sidemover.places.abstracts.Placement;
 
 public class HeroCard extends Card {
     public int damage;
@@ -11,6 +12,8 @@ public class HeroCard extends Card {
         this.hitPoint = hitPoint;
         this.damage = damage;
         symbol = "[H]";
+        placeCost = 2;
+        shotCost = 2;
     }
 
     @Override
