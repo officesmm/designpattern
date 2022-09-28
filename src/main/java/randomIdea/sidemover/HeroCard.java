@@ -1,9 +1,4 @@
-package randomIdea.sidemover.cards;
-
-import randomIdea.sidemover.cards.abstracts.Card;
-import randomIdea.sidemover.coordinate.Vector2;
-import randomIdea.sidemover.places.Hero;
-import randomIdea.sidemover.places.abstracts.Placement;
+package randomIdea.sidemover;
 
 public class HeroCard extends Card {
     public int damage;

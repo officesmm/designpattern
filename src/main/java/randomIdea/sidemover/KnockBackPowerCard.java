@@ -1,8 +1,4 @@
-package randomIdea.sidemover.cards;
-
-import randomIdea.sidemover._core._MainSideMover;
-import randomIdea.sidemover.coordinate.Vector2;
-import randomIdea.sidemover.places.Hero;
+package randomIdea.sidemover;
 
 public class KnockBackPowerCard extends PowerCard {
 

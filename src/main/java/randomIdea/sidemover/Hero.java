@@ -1,14 +1,4 @@
-package randomIdea.sidemover.places;
-
-import randomIdea.sidemover.bullet.Bullet;
-import randomIdea.sidemover.cards.HeroCard;
-import randomIdea.sidemover.coordinate.Board;
-import randomIdea.sidemover.coordinate.Vector2;
-import randomIdea.sidemover.interfaces.IDestroyable;
-import randomIdea.sidemover.interfaces.IMovable;
-import randomIdea.sidemover.interfaces.ISelectable;
-import randomIdea.sidemover.interfaces.IShootable;
-import randomIdea.sidemover.places.abstracts.Placement;
+package randomIdea.sidemover;
 
 public class Hero extends Placement implements IShootable, IMovable, IDestroyable, ISelectable {
 

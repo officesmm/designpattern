@@ -1,6 +1,4 @@
-package randomIdea.sidemover.coordinate;
-
-import randomIdea.sidemover.places.abstracts.Placement;
+package randomIdea.sidemover;
 
 public class Collision {
 

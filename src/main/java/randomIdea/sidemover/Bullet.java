@@ -1,7 +1,4 @@
-package randomIdea.sidemover.bullet;
-
-import randomIdea.sidemover.coordinate.Vector2;
-import randomIdea.sidemover.places.abstracts.Placement;
+package randomIdea.sidemover;
 
 public class Bullet extends Placement {
     Vector2.Directions direction;

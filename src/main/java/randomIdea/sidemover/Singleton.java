@@ -1,4 +1,4 @@
-package randomIdea.sidemover.design;
+package randomIdea.sidemover;
 import java.util.HashMap;
 import java.util.Map;
 

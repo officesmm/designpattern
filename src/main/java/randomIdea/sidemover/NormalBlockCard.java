@@ -1,8 +1,4 @@
-package randomIdea.sidemover.cards;
-
-import randomIdea.sidemover.coordinate.Vector2;
-import randomIdea.sidemover.places.NormalBlock;
-import randomIdea.sidemover.places.abstracts.Placement;
+package randomIdea.sidemover;
 
 public class NormalBlockCard extends BlockCard{
     public NormalBlockCard(int hitPoint) {

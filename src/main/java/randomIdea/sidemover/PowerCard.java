@@ -1,9 +1,4 @@
-package randomIdea.sidemover.cards;
-
-import randomIdea.sidemover.cards.abstracts.Card;
-import randomIdea.sidemover.places.Hero;
-import randomIdea.sidemover.places.abstracts.Placement;
-import randomIdea.sidemover.coordinate.Vector2;
+package randomIdea.sidemover;
 
 public class PowerCard extends Card {
 

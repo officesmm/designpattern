@@ -1,4 +1,4 @@
-package randomIdea.sidemover.interfaces;
+package randomIdea.sidemover;
 
 import java.util.ArrayList;
 

@@ -1,8 +1,4 @@
-package randomIdea.sidemover.places;
-
-import randomIdea.sidemover.cards.BlockCard;
-import randomIdea.sidemover.coordinate.Vector2;
-import randomIdea.sidemover.interfaces.IDestroyable;
+package randomIdea.sidemover;
 
 public class NormalBlock extends Block implements IDestroyable {
 

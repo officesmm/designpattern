@@ -1,8 +1,4 @@
-package randomIdea.sidemover.cards;
-
-import randomIdea.sidemover.coordinate.Vector2;
-import randomIdea.sidemover.places.abstracts.Placement;
-import randomIdea.sidemover.places.SpecialBlock;
+package randomIdea.sidemover;
 
 public class SpecialBlockCard extends BlockCard {
     public SpecialBlockCard() {

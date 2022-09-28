@@ -1,21 +1,8 @@
-package randomIdea.sidemover._core;
+package randomIdea.sidemover;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-
-import randomIdea.sidemover.bullet.Bullet;
-import randomIdea.sidemover.cards.BlockCard;
-import randomIdea.sidemover.cards.abstracts.Card;
-import randomIdea.sidemover.cards.HeroCard;
-import randomIdea.sidemover.cards.PowerCard;
-import randomIdea.sidemover.interfaces.IDestroyable;
-import randomIdea.sidemover.interfaces.ISelectable;
-import randomIdea.sidemover.places.Hero;
-import randomIdea.sidemover.places.abstracts.Placement;
-import randomIdea.sidemover.coordinate.Board;
-import randomIdea.sidemover.coordinate.Vector2;
-import randomIdea.sidemover.design.Singleton;
 
 public class _MainSideMover {
     public static Board MAINBOARD;

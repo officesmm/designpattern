@@ -1,8 +1,4 @@
-package randomIdea.sidemover.cards.abstracts;
-
-import randomIdea.sidemover.coordinate.Vector2;
-import randomIdea.sidemover.interfaces.ISelectable;
-import randomIdea.sidemover.places.abstracts.Placement;
+package randomIdea.sidemover;
 
 public abstract class Card implements ISelectable {
     public int hitPoint;

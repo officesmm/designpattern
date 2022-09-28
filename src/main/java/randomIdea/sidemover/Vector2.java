@@ -1,4 +1,4 @@
-package randomIdea.sidemover.coordinate;
+package randomIdea.sidemover;
 
 public class Vector2 {
     public int x;
