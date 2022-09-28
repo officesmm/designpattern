@@ -13,4 +13,9 @@ public class NormalBlockCard extends BlockCard{
         Placement plc = new NormalBlock(this, position);
         return plc;
     }
+
+    @Override
+    public String fullDescription() {
+        return " (Normal) "+" PlacementCost: " +placeCost;
+    }
 }

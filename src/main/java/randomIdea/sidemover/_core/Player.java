@@ -32,7 +32,7 @@ public class Player {
         deck.add(new SpecialBlockCard());
         deck.add(new NormalBlockCard(5));
         deck.add(new HeroCard(3, 2));
-        deck.add(new HeroCard(3, 2));
+        deck.add(new HeroCard(5, 1));
         deck.add(new PowerCard(2, 1, "2hp 1dmg Special Power"));
         deck.add(new KnockBackPowerCard());
     }
@@ -40,7 +40,7 @@ public class Player {
     void show() {
         System.out.println("----- CARDS -----");
         for (int i = 0; i < deck.size(); i++) {
-            System.out.print(deck.get(i).symbol);
+            System.out.println(i + ". " + deck.get(i).symbol + deck.get(i).fullDescription());
         }
         System.out.println();
         System.out.println("----- CARDS -----");

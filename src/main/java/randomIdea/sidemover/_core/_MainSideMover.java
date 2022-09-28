@@ -202,7 +202,7 @@ public class _MainSideMover {
             System.out.println("Select a hero on the map");
             for (int i = 0; i < MAINBOARD.boardItem.size(); i++) {
                 if (MAINBOARD.boardItem.get(i) instanceof ISelectable) {
-                    System.out.println(i + ", if you want to select " + MAINBOARD.boardItem.get(i).symbol + MAINBOARD.boardItem.get(i).position.display());
+                    System.out.println(i + ". if you want to select " + MAINBOARD.boardItem.get(i).symbol + MAINBOARD.boardItem.get(i).position.display());
                 }
             }
             String input = br.readLine();

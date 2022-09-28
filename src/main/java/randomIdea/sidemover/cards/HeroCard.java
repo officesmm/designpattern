@@ -27,4 +27,9 @@ public class HeroCard extends Card {
         Placement plc = new Hero(this);
         return plc;
     }
+
+    @Override
+    public String fullDescription() {
+        return " HitPoint: " + hitPoint + " Damage: " + damage + " PlacementCost: " +placeCost;
+    }
 }

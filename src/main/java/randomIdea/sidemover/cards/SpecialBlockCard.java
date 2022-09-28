@@ -15,4 +15,9 @@ public class SpecialBlockCard extends BlockCard {
         Placement plc = new SpecialBlock(this, position);
         return plc;
     }
+
+    @Override
+    public String fullDescription() {
+        return " (Special) "+" PlacementCost: " +placeCost;
+    }
 }

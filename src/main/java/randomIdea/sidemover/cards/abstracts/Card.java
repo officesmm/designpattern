@@ -17,5 +17,5 @@ public abstract class Card implements ISelectable {
     }
 
     public abstract Placement UseCard(Vector2 position);
-
+    public abstract String fullDescription();
 }

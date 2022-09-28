@@ -33,14 +33,13 @@ public class PowerCard extends Card {
     }
 
     public String usePower(Hero hero) {
-        hero.card.hitPoint +=upgradeHitPoint;
-        hero.card.hitPoint +=upgradeDamage;
+        hero.card.hitPoint += upgradeHitPoint;
+        hero.card.hitPoint += upgradeDamage;
         return effectText;
     }
 
     @Override
     public boolean selectionShow() {
-        // TODO: 13/09/2022 select hero;
         UseCard(null);
         return false;
     }
@@ -48,6 +47,11 @@ public class PowerCard extends Card {
     @Override
     public Placement UseCard(Vector2 position) {
         return null;
+    }
+
+    @Override
+    public String fullDescription() {
+        return " "+effectText + " PlacementCost: " + placeCost;
     }
 
 }

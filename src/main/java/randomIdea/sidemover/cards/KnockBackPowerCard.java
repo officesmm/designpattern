@@ -16,4 +16,5 @@ public class KnockBackPowerCard extends PowerCard {
         }
         return effectText;
     }
+
 }
