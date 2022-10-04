@@ -1,4 +1,4 @@
-package behavioral._25observertutorialpoint._24observer;
+package behavioral._24observer;
 
 import java.util.Observable;
 import java.util.Observer;
