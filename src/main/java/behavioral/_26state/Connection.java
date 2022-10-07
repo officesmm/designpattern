@@ -1,0 +1,12 @@
+package behavioral._26state;
+
+public interface Connection {
+
+    public void open();
+
+    public void close();
+
+    public void log();
+
+    public void update();
+}// End of the Connection interface.
