@@ -1,6 +1,6 @@
 package behavioral._25observertutorialpoint;
 
-public class _MainOvserverTutorialPoint {
+public class _MainObserverTutorialPoint {
 
     public static void main(String[] args) {
         Subject subject = new Subject();

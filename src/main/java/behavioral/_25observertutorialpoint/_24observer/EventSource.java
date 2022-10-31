@@ -1,4 +1,4 @@
-package behavioral._24observer;
+package behavioral._25observertutorialpoint._24observer;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
