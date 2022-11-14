@@ -1,25 +1,22 @@
 package extra._32actiondelegate;
 
 public class _MainActionDelegate { // this might be input from keyboard and mouse
+    static ActionDelegate actionDelegate;
+    static Player player;
+
     public static void main(String[] args) {
-        ActionDelegate actionDelegate = new ActionDelegate();
-        Player client = new Player(actionDelegate);
-
-        actionDelegate.setActionType("EJB");
-        client.doAction();
-
-        actionDelegate.setActionType("JMS");
-        client.doAction();
-
+        actionDelegate = new ActionDelegate();
+        player = new Player(actionDelegate);
+        rightMouseClick();
+//        leftMouseClick();
     }
 
     private static void rightMouseClick() {
-
+        actionDelegate.setActionType("Fight");
+        player.doAction();
     }
     private static void leftMouseClick() {
-        ActionDelegate actionDelegate = new ActionDelegate();
-        Player client = new Player(actionDelegate);
-        actionDelegate.setActionType("EJB");
-        client.doAction();
+        actionDelegate.setActionType("Move");
+        player.doAction();
     }
 }
